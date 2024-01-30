@@ -9,8 +9,8 @@ type ProductService struct {
 	ProductDB database.ProductDB
 }
 
-func NewProductService(productDB *database.ProductDB) *ProductService {
-	return &ProductService{ProductDB: *productDB}
+func NewProductService(productDB database.ProductDB) *ProductService {
+	return &ProductService{ProductDB: productDB}
 }
 
 func (ps *ProductService) GetProducts() ([]*entity.Product, error) {

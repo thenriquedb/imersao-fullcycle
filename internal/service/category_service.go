@@ -9,8 +9,8 @@ type CategoryService struct {
 	CategoryDB database.CategoryDB
 }
 
-func NewCategoryService(categoryDB *database.CategoryDB) *CategoryService {
-	return &CategoryService{CategoryDB: *categoryDB}
+func NewCategoryService(categoryDB database.CategoryDB) *CategoryService {
+	return &CategoryService{CategoryDB: categoryDB}
 }
 
 func (cs *CategoryService) GetCategories() ([]*entity.Category, error) {
