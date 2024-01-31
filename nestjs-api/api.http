@@ -14,5 +14,30 @@ Content-Type: application/json
 
 ### Get products
 GET http://localhost:3000/products
+
 ### Get product by id
 GET http://localhost:3000/products/1
+
+### Create order
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "product_id": "5b1f0513-06b5-439b-909b-e1bb46d03e1b",
+      "quantity": 1
+    },
+    {
+      "product_id": "e55400c2-4bfc-4cf9-9ce5-4787a27c5711",
+      "quantity": 2
+    }
+  ],
+  "card_hash": "456"
+}
+
+### Get orders
+GET http://localhost:3000/orders
+
+### Get order bt id
+GET http://localhost:3000/orders/10e8c662-1318-4af5-94b0-cea991b66e6a
