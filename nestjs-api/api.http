@@ -1,27 +1,25 @@
 GET http://localhost:3000/products
 Content-Type: "application/json"
 
-### Create product
-POST http://localhost:3000/products
+
+### Login
+# @name login
+POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "name": "Product 1",
-    "description": "Product 1 description",
-    "price": 100,
-    "image_url": "https://via.placeholder.com/150"
+  "username": "john",
+  "password": "john123"
 }
 
-### Get products
-GET http://localhost:3000/products
-
-### Get product by id
-GET http://localhost:3000/products/1
+###
+@authToken = {{login.response.body.access_token}}
 
 ### Create order
 POST http://localhost:3000/orders
 Content-Type: application/json
-
+Authorization: Bearer {{authToken}}
+ 
 {
   "items": [
     {
@@ -38,6 +36,26 @@ Content-Type: application/json
 
 ### Get orders
 GET http://localhost:3000/orders
+Authorization: Bearer {{authToken}}
 
 ### Get order bt id
 GET http://localhost:3000/orders/10e8c662-1318-4af5-94b0-cea991b66e6a
+Authorization: Bearer {{authToken}}
+
+
+### Create product
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+    "name": "Product 1",
+    "description": "Product 1 description",
+    "price": 100,
+    "image_url": "https://via.placeholder.com/150"
+}
+
+### Get products
+GET http://localhost:3000/products
+
+### Get product by id
+GET http://localhost:3000/products/1
