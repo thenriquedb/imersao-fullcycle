@@ -4,12 +4,14 @@ import { In, Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Order } from './entities/order.entity';
 import { Product } from '../products/entities/product.entity';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectRepository(Order) private orderRepo: Repository<Order>,
     @InjectRepository(Product) private productRepo: Repository<Product>,
+    private amqpConnection: AmqpConnection
   ) { }
 
   async create(createOrderDto: CreateOrderDto) {
@@ -35,6 +37,12 @@ export class OrdersService {
     });
 
     const createdOrder = await this.orderRepo.save(order);
+    this.amqpConnection.publish('amq.direct', 'OrderCreated', {
+      order_id: createdOrder.id,
+      card_hash: createOrderDto.card_hash,
+      total: order.total
+    })
+
     return createdOrder;
   }
 
