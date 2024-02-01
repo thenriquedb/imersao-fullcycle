@@ -22,7 +22,7 @@ export class OrdersService {
     }
 
     const order = Order.create({
-      client_id: 1,
+      client_id: createOrderDto.client_id,
       items: createOrderDto.items.map(item => {
         const product = products.find(product => product.id === item.product_id);
 
@@ -38,11 +38,16 @@ export class OrdersService {
     return createdOrder;
   }
 
-  findAll() {
-    return this.orderRepo.find();
+  findAll(client_id: number) {
+    return this.orderRepo.find({
+      where: { client_id },
+      order: {
+        created_at: 'DESC'
+      }
+    });
   }
 
-  findOne(id: string) {
-    return this.orderRepo.findOne({ where: { id } });
+  findOne(id: string, client_id: number) {
+    return this.orderRepo.findOneOrFail({ where: { id, client_id } });
   }
 }

@@ -11,6 +11,8 @@ export class CreateOrderDto {
   @ValidateNested({ each: true })
   @Type(() => OrderItemDto)
   items: OrderItemDto[];
+
+  client_id: number;
 }
 
 export class OrderItemDto {

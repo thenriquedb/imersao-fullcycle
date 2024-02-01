@@ -1,5 +1,4 @@
 import { OrderItem } from "src/orders/entities/order-item.entity";
-import { Product } from "src/products/entities/product.entity";
 import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 export enum OrderStatus {
