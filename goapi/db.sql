@@ -4,7 +4,7 @@ CREATE TABLE `categories` (
 	PRIMARY KEY (`id`)
 );
 
-INSERT INTO `imersao17`.`categories` (`id`, `name`) VALUES ("d2f961a7-157a-4270-beec-837a8b55ceba", "Relógios");
+INSERT INTO `imersao17`.`categories` (`id`, `name`) VALUES ("99bf7f04-2678-4e75-9a25-cb11e3aac6dd", "Relógios");
 INSERT INTO `imersao17`.`categories` (`id`, `name`) VALUES ("85d5417d-b588-428f-90a0-69bb5e4408bf", "Eletrônicos");
 
 CREATE TABLE `products` (
