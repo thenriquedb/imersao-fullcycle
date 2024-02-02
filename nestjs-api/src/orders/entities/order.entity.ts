@@ -2,9 +2,9 @@ import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } f
 import { OrderItem } from "./order-item.entity";
 
 export enum OrderStatus {
-  PENDING = 'PENDING',
-  PAID = 'PAID',
-  FAILED = 'FAILED'
+  PENDING = 'pending',
+  PAID = 'paid',
+  FAILED = 'failed'
 }
 
 export type CreateOrderCommand = {
@@ -57,5 +57,29 @@ export class Order {
     }, 0);
 
     return order;
+  }
+
+  pay() {
+    if (this.status === OrderStatus.PAID) {
+      throw new Error('Order already paid');
+    }
+
+    if (this.status === OrderStatus.FAILED) {
+      throw new Error('Order already failed');
+    }
+
+    this.status = OrderStatus.PAID;
+  }
+
+  fail() {
+    if (this.status === OrderStatus.FAILED) {
+      throw new Error('Order already failed');
+    }
+
+    if (this.status === OrderStatus.PAID) {
+      throw new Error('Order already paid');
+    }
+
+    this.status = OrderStatus.FAILED;
   }
 }

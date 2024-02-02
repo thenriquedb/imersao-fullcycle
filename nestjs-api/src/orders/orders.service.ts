@@ -58,4 +58,20 @@ export class OrdersService {
   findOne(id: string, client_id: number) {
     return this.orderRepo.findOneOrFail({ where: { id, client_id } });
   }
+
+  async pay(id: string) {
+    const order = await this.orderRepo.findOneByOrFail({ id });
+
+    order.pay();
+
+    return this.orderRepo.save(order);
+  }
+
+  async fail(id: string) {
+    const order = await this.orderRepo.findOneByOrFail({ id });
+
+    order.fail();
+
+    return this.orderRepo.save(order);
+  }
 }

@@ -16,7 +16,7 @@ export class OrderItem {
   @ManyToOne(() => Order)
   order: Order;
 
-  @ManyToOne(() => Product, { cascade: ['insert'], eager: true })
+  @ManyToOne(() => Product, { eager: true })
   @JoinColumn({ name: 'product_id' })
   product: Product;
 
