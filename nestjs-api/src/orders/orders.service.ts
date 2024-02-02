@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { In, Repository } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Order } from './entities/order.entity';
 import { Product } from '../products/entities/product.entity';
-import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 
 @Injectable()
 export class OrdersService {

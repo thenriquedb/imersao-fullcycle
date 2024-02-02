@@ -1,5 +1,5 @@
-import { OrderItem } from "src/orders/entities/order-item.entity";
-import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { OrderItem } from "./order-item.entity";
 
 export enum OrderStatus {
   PENDING = 'PENDING',
@@ -27,7 +27,10 @@ export class Order {
   @Column()
   client_id: number;
 
-  @OneToMany(() => OrderItem, (item) => item.order)
+  @OneToMany(() => OrderItem, (item) => item.order, {
+    cascade: ['insert'],
+    eager: true
+  })
   items: OrderItem[];
 
   @Column()
