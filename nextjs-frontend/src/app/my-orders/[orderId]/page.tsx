@@ -13,9 +13,8 @@ import { Total } from "../../../components/Total";
 import { OrderServiceFactory } from "../../../services/order.service";
 
 async function MyOrderDetail({ params }: { params: { orderId: string } }) {
-
   const order = await OrderServiceFactory.create().getOrder(params.orderId);
-  
+
   return (
     <Box>
       <Grid2 container spacing={2}>
@@ -51,8 +50,8 @@ async function MyOrderDetail({ params }: { params: { orderId: string } }) {
               {order.status === OrderStatus.PENDING
                 ? "Pedido pendente"
                 : order.status === OrderStatus.PAID
-                ? "Pedido pago"
-                : "Pedido cancelado"}
+                  ? "Pedido pago"
+                  : "Pedido cancelado"}
             </Typography>
           </Box>
         </Grid2>

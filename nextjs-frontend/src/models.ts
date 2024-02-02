@@ -13,10 +13,17 @@ export type Product = {
 };
 
 export enum OrderStatus {
-  PENDING = "pending",
-  PAID = "paid",
-  FAILED = "failed",
+  PENDING = 'pending',
+  PAID = 'paid',
+  FAILED = 'failed'
 }
+
+export type OrderItem = {
+  id: number;
+  quantity: number;
+  price: number;
+  product: Product;
+};
 
 export type Order = {
   id: string;
@@ -26,9 +33,3 @@ export type Order = {
   created_at: string;
 };
 
-export type OrderItem = {
-  id: number;
-  quantity: number;
-  price: number;
-  product: Product;
-};
