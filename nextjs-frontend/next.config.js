@@ -3,8 +3,8 @@ const nextConfig = {
   redirects: async () => {
     return [
       {
-        source: '/',
-        destination: '/products',
+        source: "/",
+        destination: "/products",
         permanent: true,
       },
     ];
@@ -12,16 +12,15 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'source.unsplash.com',
-        pathname: '/random',
+        protocol: "https",
+        hostname: "source.unsplash.com",
       },
       {
-        protocol: 'http',
-        hostname: 'localhost',
+        protocol: "http",
+        hostname: "localhost",
       },
     ],
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

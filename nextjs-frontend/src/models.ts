@@ -1,5 +1,5 @@
 export type Category = {
-  id: string;
+  id: number;
   name: string;
 };
 
@@ -7,15 +7,15 @@ export type Product = {
   id: string;
   name: string;
   description: string;
-  category_id: string;
   image_url: string;
   price: number;
+  category_id: string;
 };
 
 export enum OrderStatus {
-  PENDING = 'pending',
-  PAID = 'paid',
-  FAILED = 'failed',
+  PENDING = "pending",
+  PAID = "paid",
+  FAILED = "failed",
 }
 
 export type Order = {
@@ -31,15 +31,4 @@ export type OrderItem = {
   quantity: number;
   price: number;
   product: Product;
-};
-
-export type Cart = {
-  items: CartItem[];
-  total: number;
-};
-
-export type CartItem = {
-  product_id: string;
-  quantity: number;
-  total: number;
 };

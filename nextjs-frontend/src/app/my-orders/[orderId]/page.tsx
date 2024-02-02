@@ -6,84 +6,53 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '@mui/material';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import { Total } from '@/components/Total';
-import { Order, OrderStatus } from '@/models/models';
+} from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { OrderStatus } from "../../../models";
+import { Total } from "../../../components/Total";
+import { OrderServiceFactory } from "../../../services/order.service";
 
-const order: Order = {
-  id: '1',
-  status: OrderStatus.PENDING,
-  created_at: '2021-10-10T00:00:00.000Z',
-  items: [
-    {
-      id: 1,
-      product: {
-        id: '1',
-        name: 'Camisa',
-        description: 'Camisa branca',
-        price: 100,
-        image_url: 'https://source.unsplash.com/random?product',
-        category_id: '1',
-      },
-      quantity: 2,
-      price: 100,
-    },
-    {
-      id: 2,
-      product: {
-        id: '2',
-        name: 'Calça',
-        description: 'Calça jeans',
-        price: 100,
-        image_url: 'https://source.unsplash.com/random?product',
-        category_id: '1',
-      },
-      quantity: 1,
-      price: 100,
-    },
-  ],
-  total: 1000,
-};
+async function MyOrderDetail({ params }: { params: { orderId: string } }) {
 
-function MyOrderDetailPage({ params }: { params: { orderId: string } }) {
+  const order = await OrderServiceFactory.create().getOrder(params.orderId);
+  
   return (
     <Box>
       <Grid2 container spacing={2}>
         <Grid2 xs={12} md={6}>
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              flexDirection: 'column',
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
             }}
           >
             <Box
               sx={{
-                display: 'flex',
-                justifyContent: 'center',
+                display: "flex",
+                justifyContent: "center",
               }}
             >
               {order.status === OrderStatus.PENDING ? (
-                <Typography variant="h1" sx={{ color: 'warning.main' }}>
+                <Typography variant="h1" sx={{ color: "warning.main" }}>
                   ⏳
                 </Typography>
               ) : order.status === OrderStatus.PAID ? (
-                <Typography variant="h1" sx={{ color: 'success.main' }}>
+                <Typography variant="h1" sx={{ color: "success.main" }}>
                   ✔
                 </Typography>
               ) : (
-                <Typography variant="h1" sx={{ color: 'error.main' }}>
+                <Typography variant="h1" sx={{ color: "error.main" }}>
                   ✖
                 </Typography>
               )}
             </Box>
-            <Typography variant="h4" sx={{ textAlign: 'center' }}>
+            <Typography variant="h4" sx={{ textAlign: "center" }}>
               {order.status === OrderStatus.PENDING
-                ? 'Pedido pendente'
+                ? "Pedido pendente"
                 : order.status === OrderStatus.PAID
-                ? 'Pedido pago'
-                : 'Pedido cancelado'}
+                ? "Pedido pago"
+                : "Pedido cancelado"}
             </Typography>
           </Box>
         </Grid2>
@@ -104,9 +73,9 @@ function MyOrderDetailPage({ params }: { params: { orderId: string } }) {
                     <TableCell>{item.product.name}</TableCell>
                     <TableCell>{item.quantity}</TableCell>
                     <TableCell>
-                      {new Intl.NumberFormat('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL',
+                      {new Intl.NumberFormat("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
                       }).format(item.product.price)}
                     </TableCell>
                   </TableRow>
@@ -114,7 +83,7 @@ function MyOrderDetailPage({ params }: { params: { orderId: string } }) {
               })}
               <TableRow>
                 <TableCell colSpan={3}>
-                  <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+                  <Box sx={{ display: "flex", justifyContent: "end" }}>
                     <Total total={order.total} />
                   </Box>
                 </TableCell>
@@ -127,4 +96,4 @@ function MyOrderDetailPage({ params }: { params: { orderId: string } }) {
   );
 }
 
-export default MyOrderDetailPage;
+export default MyOrderDetail;

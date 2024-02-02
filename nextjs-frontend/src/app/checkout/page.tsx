@@ -7,50 +7,23 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '@mui/material';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import { CheckoutForm } from './CheckoutForm';
-import { Total } from '@/components/Total';
-import { redirect } from 'next/navigation';
-
-const products = [
-  {
-    id: '1',
-    name: 'Camisa',
-    description: 'Camisa branca',
-    price: 100,
-    image_url: 'https://source.unsplash.com/random?product',
-    category_id: '1',
-  },
-  {
-    id: '2',
-    name: 'Calça',
-    description: 'Calça jeans',
-    price: 100,
-    image_url: 'https://source.unsplash.com/random?product',
-    category_id: '1',
-  },
-];
-
-const cart = {
-  items: [
-    {
-      product_id: '1',
-      quantity: 2,
-      total: 200,
-    },
-    {
-      product_id: '2',
-      quantity: 1,
-      total: 100,
-    },
-  ],
-  total: 1000,
-};
+} from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { CheckoutForm } from "./CheckoutForm";
+import { redirect } from "next/navigation";
+import { Total } from "../../components/Total";
+import { CartServiceFactory } from "../../services/cart.service";
+import { ProductService } from "../../services/product.service";
 
 async function CheckoutPage() {
+  const cart = CartServiceFactory.create().getCart();
+  const productService = new ProductService();
+  const products = await productService.getProductsByIds(
+    cart.items.map((item) => item.product_id)
+  );
+
   if (cart.items.length === 0) {
-    return redirect('/my-cart');
+    return redirect("/my-cart");
   }
 
   return (
@@ -83,9 +56,9 @@ async function CheckoutPage() {
                     <TableCell>{product.name}</TableCell>
                     <TableCell>{item.quantity}</TableCell>
                     <TableCell>
-                      {new Intl.NumberFormat('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL',
+                      {new Intl.NumberFormat("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
                       }).format(item.total)}
                     </TableCell>
                   </TableRow>
@@ -93,7 +66,7 @@ async function CheckoutPage() {
               })}
               <TableRow>
                 <TableCell colSpan={3}>
-                  <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+                  <Box sx={{ display: "flex", justifyContent: "end" }}>
                     <Total total={cart.total} />
                   </Box>
                 </TableCell>

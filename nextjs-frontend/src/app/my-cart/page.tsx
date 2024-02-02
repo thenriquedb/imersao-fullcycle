@@ -1,4 +1,3 @@
-import { Total } from '@/components/Total';
 import {
   Avatar,
   Box,
@@ -9,22 +8,23 @@ import {
   ListItemAvatar,
   ListItemText,
   Typography,
-} from '@mui/material';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Link from 'next/link';
-import React from 'react';
-import { CartServiceFactory } from '@/services/cart.service';
-import { ProductService } from '@/services/product.service';
-import { removeItemFromCartAction } from '@/server-actions/cart.action';
+} from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Link from "next/link";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Total } from "../../components/Total";
+import React from "react";
+import { CartServiceFactory } from "../../services/cart.service";
+import { ProductService } from "../../services/product.service";
+import { removeItemFromCartAction } from "../../server-actions/cart.action";
 
 async function MyCartPage() {
   const cart = CartServiceFactory.create().getCart();
-  const productsIds = cart.items.map((item) => item.product_id);
   const productService = new ProductService();
-  const products = await productService.getProductsByIds(productsIds);
-
+  const products = await productService.getProductsByIds(
+    cart.items.map((item) => item.product_id)
+  );
   return (
     <Box>
       <Typography variant="h3">
@@ -41,7 +41,7 @@ async function MyCartPage() {
               return (
                 <React.Fragment key={index}>
                   <ListItem
-                    sx={{ display: 'flex', alignItems: 'flex-start', mt: 3 }}
+                    sx={{ display: "flex", alignItems: "flex-start", mt: 3 }}
                   >
                     <ListItemAvatar>
                       <Avatar src={product.image_url} />
@@ -50,17 +50,17 @@ async function MyCartPage() {
                       primary={
                         <Box
                           sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
+                            display: "flex",
+                            justifyContent: "space-between",
                           }}
                         >
                           <Typography variant="button">
                             {product.name} - Qtd. {item.quantity}
                           </Typography>
-                          <Typography sx={{ color: 'primary.main' }}>
-                            {new Intl.NumberFormat('pt-BR', {
-                              style: 'currency',
-                              currency: 'BRL',
+                          <Typography sx={{ color: "primary.main" }}>
+                            {new Intl.NumberFormat("pt-BR", {
+                              style: "currency",
+                              currency: "BRL",
                             }).format(item.total)}
                           </Typography>
                         </Box>
@@ -68,7 +68,7 @@ async function MyCartPage() {
                     />
                   </ListItem>
                   <ListItem
-                    sx={{ display: 'flex', justifyContent: 'end', p: 0 }}
+                    sx={{ display: "flex", justifyContent: "end", p: 0 }}
                   >
                     <form action={removeItemFromCartAction}>
                       <input type="hidden" name="index" value={index} />
@@ -91,10 +91,10 @@ async function MyCartPage() {
               </ListItem>
             )}
           </List>
-          <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+          <Box sx={{ display: "flex", justifyContent: "end" }}>
             <Total total={cart.total} />
           </Box>
-          <Box sx={{ display: 'flex', justifyContent: 'end', mt: 2 }}>
+          <Box sx={{ display: "flex", justifyContent: "end", mt: 2 }}>
             {cart.items.length ? (
               <Button LinkComponent={Link} href="/checkout">
                 Finalizar compra
