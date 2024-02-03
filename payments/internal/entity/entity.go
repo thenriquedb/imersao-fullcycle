@@ -3,9 +3,9 @@ package entity
 import "errors"
 
 type OrderRequest struct {
-	OrderID  string  "json:order_id"
-	CardHash string  "json:card_hash"
-	Total    float64 "json:total"
+	OrderID  string  `json:"order_id"`
+	CardHash string  `json:"card_hash"`
+	Total    float64 `json:"total"`
 }
 
 func NewOrderRequest(orderID, cardHash string, total float64) *OrderRequest {
@@ -39,7 +39,7 @@ func (o *OrderRequest) Process() (*OrderResponse, error) {
 
 	orderResponse := NewOrderResponse(o.OrderID, "failed")
 
-	if o.Total < 100 {
+	if o.Total > 100 {
 		orderResponse.Status = "paid"
 	}
 
@@ -47,8 +47,8 @@ func (o *OrderRequest) Process() (*OrderResponse, error) {
 }
 
 type OrderResponse struct {
-	OrderID string "json:order_id"
-	Status  string "json:status" // paid | failed
+	OrderID string `json:"order_id"`
+	Status  string `json:"status"` // paid | failed
 }
 
 func NewOrderResponse(orderID, status string) *OrderResponse {

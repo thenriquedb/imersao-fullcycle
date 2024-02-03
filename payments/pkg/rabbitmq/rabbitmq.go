@@ -46,7 +46,7 @@ func Publish(ctx context.Context, ch *amqp.Channel, body, exName string) error {
 	err := ch.PublishWithContext(
 		ctx,
 		exName,
-		"",
+		"PaymentDone",
 		false,
 		false,
 		amqp.Publishing{
