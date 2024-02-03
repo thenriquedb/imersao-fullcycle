@@ -10,7 +10,3 @@
 <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&amp;logo=typescript&amp;logoColor=white" alt="TypeScript">
 <img src="https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&amp;logo=nestjs&amp;logoColor=white" alt="NestJS">
 <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&amp;logo=docker&amp;logoColor=white" alt="Docker"></p>
-
-
-https://github.com/rodolfoHOk/fullcycle.imersao17/tree/main/nextjs-frontend
-https://github.com/oproprioleonardo/nextjs-imersao17-fullcycle/commits?author=oproprioleonardo
